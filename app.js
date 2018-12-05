@@ -22,7 +22,6 @@ app.get('/books', (req, res) => {
       console.log(err)
       res.status(500).json({ err })
     } else {
-      console.log({books})
       res.render('books', { books })
     }
   })
