@@ -28,6 +28,19 @@ app.get('/books', (req, res) => {
   })
 })
 
+app.get('/books/new', (req, res) => res.render('books/new'))
+
+app.post('/books', (req, res) => {
+  Book.create(req.body, (err, book) => {
+    if (err) {
+      console.log(err)
+      res.status(500).json({ err })
+    } else {
+      res.redirect('/books')
+    }
+  })
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(
   PORT
