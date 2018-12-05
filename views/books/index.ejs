@@ -4,7 +4,16 @@
     <meta charset="utf-8">
     <title></title>
   </head>
+  <style media="screen">
+    * {
+      font-family: arial, helvetica, 'sans serif';
+    }
+  </style>
   <body>
+    <a href="/">Back</a>
     <h1>View All Books</h1>
+    <% books.forEach(each => { %>
+      <li><%= each.name %></li>
+    <% }) %>
   </body>
 </html>
