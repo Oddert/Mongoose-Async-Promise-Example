@@ -14,7 +14,7 @@
     <h1>View All Books</h1>
     <a href="/books/new">Add a New Book</a>
     <% books.forEach(each => { %>
-      <li><%= each.name %></li>
+      <li><a href="/books/<%= each._id %>"><%= each.name %></a></li>
     <% }) %>
   </body>
 </html>

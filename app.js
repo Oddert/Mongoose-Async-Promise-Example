@@ -40,6 +40,17 @@ app.post('/books', (req, res) => {
   })
 })
 
+app.get('/books/:id', (req, res) => {
+  Book.findById(req.params.id, (err, book) => {
+    if (err) {
+      console.log(err)
+      res.status(500).json({ err })
+    } else {
+      res.render('books/show', { book })
+    }
+  })
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(
   PORT
