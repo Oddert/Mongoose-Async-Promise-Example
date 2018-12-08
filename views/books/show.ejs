@@ -2,10 +2,15 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/index.css" />
     <title></title>
   </head>
   <body>
     <h1><%= book.name %></h1>
+    <a href="/books/<%= book._id %>/edit">Edit Book</a>
+    <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
+      <button>Delete Book</button>
+    </form>
     <i># <%= book._id %></i>
     <p><%= book.description %></p>
     <div class="">
