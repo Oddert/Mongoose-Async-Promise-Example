@@ -11,6 +11,7 @@ const seed = require('./seed')
 
 require('dotenv').config()
 
+mongoose.Promise = global.Promise
 mongoose.connect(process.env.DATABASE)
 
 app.use(methodOverride('_method'))
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/public')))
 
 
-app.get('/', (req, res) => res.send('<a href="/books">Books</a>'))
+app.get('/', (req, res) => res.send('<a href="/books">Books</a> <a href="/books/test">/books/test</a>'))
 
 app.use('/books', require('./routes/books'))
 

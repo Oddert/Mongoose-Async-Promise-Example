@@ -4,6 +4,7 @@ const router    = require('express').Router()
 const Book      = require('../models/book')
 
 // Normal:
+
 // router.get('/', (req, res) => {
 //   Book.find({}, (err, books) => {
 //     if (err) {
@@ -14,10 +15,12 @@ const Book      = require('../models/book')
 //     }
 //   })
 // })
+
 // Callback:
 router.get('/', (req, res) => {
   console.log(`${new Date().toLocaleTimeString('en-GB')}: Async: get /`)
   Book.find({})
+  .exec()
   .then(books => {
       res.render('books', { books })
   })
@@ -28,16 +31,51 @@ router.get('/', (req, res) => {
 })
 
 
+
+// ========== Testing Zone ==========
+router.get('/test', async (req, res, next) => {
+  try {
+    console.log(`${new Date().toLocaleTimeString('en-GB')}: Async: get /`)
+    Book.find({})
+    .exec()
+    .then(books => {
+      setTimeout(() => res.render('books', { books }), 10000)
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ err })
+  }
+})
+// ========== Testing Zone ==========
+
+
 router.get('/new', (req, res) => res.render('books/new'))
 
+// Normal:
+
+// router.post('/books', (req, res) => {
+//   Book.create(req.body, (err, book) => {
+//     if (err) {
+//       console.log(err)
+//       res.status(500).json({ err })
+//     } else {
+//       res.redirect('/books')
+//     }
+//   })
+// })
+
+
+// Callback:
+
 router.post('/books', (req, res) => {
-  Book.create(req.body, (err, book) => {
-    if (err) {
-      console.log(err)
-      res.status(500).json({ err })
-    } else {
-      res.redirect('/books')
-    }
+  const book = new Book(req.body)
+
+  book.save()
+
+  .then(book => res.render('books/show', { book }))
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({ err })
   })
 })
 
