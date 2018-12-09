@@ -3,14 +3,27 @@ const router    = require('express').Router()
 
 const Book      = require('../models/book')
 
+// Normal:
+// router.get('/', (req, res) => {
+//   Book.find({}, (err, books) => {
+//     if (err) {
+//       console.log(err)
+//       res.status(500).json({ err })
+//     } else {
+//       res.render('books', { books })
+//     }
+//   })
+// })
+// Callback:
 router.get('/', (req, res) => {
-  Book.find({}, (err, books) => {
-    if (err) {
-      console.log(err)
-      res.status(500).json({ err })
-    } else {
+  console.log(`${new Date().toLocaleTimeString('en-GB')}: Async: get /`)
+  Book.find({})
+  .then(books => {
       res.render('books', { books })
-    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({ err })
   })
 })
 
