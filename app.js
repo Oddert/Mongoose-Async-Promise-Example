@@ -19,7 +19,6 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/public')))
 
-
 app.get('/', (req, res) => res.send('<a href="/books">Books</a> <a href="/books/test">/books/test</a>'))
 
 app.use('/books', require('./routes/books'))
@@ -30,6 +29,12 @@ app.get('/seed', (req, res) => {
   setTimeout(() => res.redirect('/books'), 3000)
 })
 
+
+app.use(function (err, req, res, next) {
+  console.log('ln 23')
+  console.log({ err, req, res, next })
+  return next()
+})
 
 const PORT = process.env.PORT || 3000
 app.listen(

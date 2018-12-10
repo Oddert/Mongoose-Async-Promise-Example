@@ -67,7 +67,7 @@ router.get('/new', (req, res) => res.render('books/new'))
 
 // Callback:
 
-router.post('/books', (req, res) => {
+router.post('/', (req, res, next) => {
   const book = new Book(req.body)
 
   book.save()
@@ -77,6 +77,8 @@ router.post('/books', (req, res) => {
     console.log(err)
     res.status(500).json({ err })
   })
+  // catch middleware method only works with Book.create()
+  // .catch(next)
 })
 
 
