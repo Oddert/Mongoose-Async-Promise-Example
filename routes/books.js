@@ -75,11 +75,16 @@ router.post('/', (req, res, next) => {
   .then(book => res.render('books/show', { book }))
   .catch(err => {
     console.log(err)
-    res.status(500).json({ err })
+    res.status(422).json({ err })
   })
-  // catch middleware method only works with Book.create()
-  // .catch(next)
 })
+
+// catch middleware method only works with Book.create()
+// router.post('/', (req, res, next) => {
+//   Book.create(req.body)
+//   .then(book => res.render('books/show', { book }))
+//   .catch(next)
+// })
 
 
 router.get('/:id', (req, res) => {

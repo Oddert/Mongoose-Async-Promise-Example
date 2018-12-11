@@ -32,8 +32,8 @@ app.get('/seed', (req, res) => {
 
 app.use(function (err, req, res, next) {
   console.log('ln 23')
-  console.log({ err, req, res, next })
-  return next()
+  console.log({ err, next })
+  return res.json({ oh: 'no', err })
 })
 
 const PORT = process.env.PORT || 3000
